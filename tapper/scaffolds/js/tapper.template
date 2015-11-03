@@ -1,1 +1,18 @@
 // This script is Automatic generation by tapper
+
+var Tapper = Tapper || {}
+
+Tapper.core = function($) {
+    var _self = {
+        init: function() {
+            Tapper.contents.onLoad();
+
+            Tapper.contents.onStart();
+
+            Tapper.contents.onScene1();
+        }
+    }
+    return _self;
+}(jQuery);
+
+$( Tapper.core.init );

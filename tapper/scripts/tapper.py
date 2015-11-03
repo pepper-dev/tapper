@@ -15,6 +15,9 @@ class TapperCommand(object):
     # create sub-command
     parser_create = subparsers.add_parser('create',
         help='create scaffolds.')
+    parser_create.add_argument('--scene',
+        type=int,
+        help='scene num')
 
     # clean sub-command
     parser_clean = subparsers.add_parser('clean',
