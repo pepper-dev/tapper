@@ -1,1 +1,18 @@
 // pepper contents
+
+Tapper.contents = {
+
+    onLoad: function() {
+        console.log("onLoad.");
+    },
+
+    onStart: function() {
+        console.log("onStart.");
+    },
+
+    onScene1: function() {
+        console.log("onScene1");
+    }
+
+}
+
