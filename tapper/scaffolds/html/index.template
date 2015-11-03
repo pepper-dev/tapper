@@ -10,7 +10,7 @@
 
     </head>
     <body>
-        <section id="scene1">
+        <section id="scene1" style="display: block;">
         </section>
     </body>
 </html>
