@@ -19,6 +19,10 @@ class TapperCommand(object):
         type=int,
         help='scene num')
 
+    # update sub-command
+    parser_update = subparsers.add_parser('update',
+        help='update scaffplds.')
+
     # clean sub-command
     parser_clean = subparsers.add_parser('clean',
         help='clean scaffolds.')
@@ -35,6 +39,9 @@ class TapperCommand(object):
 
     def create(self):
         print ''' TODO create sub-command.'''
+
+    def update(self):
+        print ''' TODO update sub-command.'''
 
     def clean(self):
         print ''' TODO clean sub-command.'''
