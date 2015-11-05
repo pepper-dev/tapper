@@ -24,8 +24,10 @@ setup(name='tapper',
     description='Pepper tablet scafflod create tools.',
     author='Takegami Hiroyuki, Minabe Yoji, Yamamoto',
     license='BSD-derived (http://www.repoze.org/LICENSE.txt)',
+    package_data = {
+        'tapper': ['scaffolds/css/*', 'scaffolds/html/*', 'scaffolds/js/*']
+    },
     packages=find_packages(),
-    include_package_data=True,
     install_requires=install_requires,
     entry_points={
         'console_scripts':
