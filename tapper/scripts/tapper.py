@@ -72,16 +72,17 @@ class TapperCommand(object):
 
     def create(self):
         print 'Tapper create.'
+        params = { 'scene': self.args.scene if self.args.scene else 1 }
+        print '  Scene %d'% params['scene']
         try:
             for d in (DIR_HTML, DIR_CSS, DIR_JS, DIR_IMG, DIR_PRE):
                 os.mkdir(d)
                 print '    mkdir: %s'% d
 
             # index.html
-            index_params   = { }
             _render(_get_resource('html',  'index.tmpl'),
                     os.path.join(DIR_HTML, 'index.html'),
-                    **index_params )
+                    **params )
 
             # *.css
             _copy(_get_resource('css', 'contents.css'), DIR_CSS)
@@ -91,13 +92,13 @@ class TapperCommand(object):
             tapper_params  = { }
             _render(_get_resource('js',  'tapper.tmpl'),
                     os.path.join(DIR_JS, 'tapper.js'),
-                    **tapper_params )
+                    **params )
 
             # contents.js
             content_params = { }
             _render(_get_resource('js',   'contents.tmpl'),
                     os.path.join(DIR_JS, 'contents.js'),
-                    **content_params )
+                    **params )
             print '  Succeeded.'
 
         except OSError:
