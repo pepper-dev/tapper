@@ -90,9 +90,13 @@ class TapperCommand(object):
             _render(_get_resource('js',   'contents.tmpl'),
                     os.path.join(DIR_JS, 'contents.js'),
                     **content_params )
+            print '  Succeeded.'
 
         except OSError:
-            print "  Failed. Can not create scaffolds."
+            print '  Failed. Can not create scaffolds.'
+        except Exception as e:
+            print '  Failed.'
+            print str(e)
 
     def update(self):
         print ''' TODO update sub-command.'''
