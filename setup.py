@@ -1,3 +1,12 @@
+'''
+Copyright (c) 2015-2016, Contributor
+All rights reserved.
+
+author: Takegami
+
+'''
+
+
 import os
 import sys
 
@@ -19,14 +28,17 @@ install_requires=[
     ]
 
 setup(name='tapper',
+    keywords='tapper',
     version='0.1',
     description='Pepper tablet scafflod create tools.',
     author='Takegami Hiroyuki, Minabe Yoji, Yamamoto',
+    license='BSD-derived (http://www.repoze.org/LICENSE.txt)',
+    package_data = {
+        'tapper': ['scaffolds/css/*', 'scaffolds/html/*', 'scaffolds/js/*']
+    },
     packages=find_packages(),
     install_requires=install_requires,
     entry_points={
         'console_scripts':
-            'tapper = tapper.scripts.tapper:main'
-    },
-    keywords='tapper'
-    )
+            'tapper=tapper.scripts.tapper:main'
+    })
