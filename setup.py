@@ -1,3 +1,12 @@
+'''
+Copyright (c) 2015-2016, Contributor
+All rights reserved.
+
+author: Takegami
+
+'''
+
+
 import os
 import sys
 
