@@ -9,9 +9,9 @@
         <script src="js/contents.js"></script>
 
     </head>
-    <body>
-        <section id="scene1" style="display: block;">
-        </section>
+    <body>{% for i in range(scene) %}
+        <section id="scene{{ i + 1}}" style="display: {% if i==0 %}block;{% else %}none;{% endif %}">
+        </section>{% endfor %}
     </body>
 </html>
 

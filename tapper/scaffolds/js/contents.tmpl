@@ -9,10 +9,11 @@ Tapper.contents = {
     onStart: function() {
         console.log("onStart.");
     },
-
-    onScene1: function() {
-        console.log("onScene1");
+    {% for i in range(scene) %}
+    onScene{{ i + 1 }}: function() {
+        console.log("onScene{{ i + 1 }}");
     }
+    {% endfor %}
 
 }
 
