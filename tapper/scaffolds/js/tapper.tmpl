@@ -53,7 +53,17 @@ Tapper.core = function($) {
 
     var _bind = function() {
         // TODO bind events.
-        // Tapper.contents.onScene1();
+        Tapper.utl.subscriveEvent("Tapper/View/ChangeScene", function(id) {
+            var scene_id = parseInt(id);
+            var scene_method = 'onScene' + scene_id;
+            $('section#scene' + scene_id).show();
+            $('section:not(#scene' + scene_id + ')').hide();
+            try {
+                Tapper.contents[scene_method]();
+            } catch(e) {
+                console.error("Undefined scene" + scene_id + ".")
+            }
+        });
     }
 
     var _self = {

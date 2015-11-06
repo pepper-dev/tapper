@@ -8,12 +8,10 @@ Tapper.contents = {
 
     onStart: function() {
         console.log("onStart.");
-    },
-    {% for i in range(scene) %}
-    onScene{{ i + 1 }}: function() {
-        console.log("onScene{{ i + 1 }}");
-    }
-    {% endfor %}
+    }{% for i in range(scene) %}{% if loop.index0 < scene %},
 
+    {% endif %}onScene{{ i + 1 }}: function() {
+        console.log("onScene{{ i + 1 }}");
+    }{% endfor %}
 }
 
