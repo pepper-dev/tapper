@@ -2,17 +2,114 @@
 
 var Tapper = Tapper || {}
 
+Tapper.session = null;
+Tapper.proxy   = { }
+
+/**
+ * Core
+ */
 Tapper.core = function($) {
+
+    // T.B.D
+    var PROXY_LEN = 2;
+
+    // image preload
+    var _preload_img = function() {
+        var image = [];
+        $.each(image, function(i, src) {
+            $('<img>').attr('src', src);
+        });
+    }
+
+    // connect alproxy.
+    var _connect = function(callback) {
+        var proxy_num = PROXY_LEN;
+
+        var get_service = function(name) {
+            Tapper.session.service(name).then(
+                // onSuccess.
+                function(proxy) {
+                    Tapper.proxy[name] = proxy;
+                    proxy_num--;
+                    if (proxy_num <= 0) callback();
+                },
+                // onFailed.
+                function(error) {
+                    console.error( error );
+                    result_func();
+                }
+            );
+        }
+
+        QiSession(function( session ) {
+            Tapper.session = session;
+
+            get_service('ALMemory');
+            get_service('ALAudioPlayer');
+        })
+    }
+
+    var _bind = function() {
+        // TODO bind events.
+        // Tapper.contents.onScene1();
+    }
+
     var _self = {
         init: function() {
             Tapper.contents.onLoad();
 
-            Tapper.contents.onStart();
-
-            Tapper.contents.onScene1();
+            _preload_img();
+            _connect( function() {
+                _bind();
+                Tapper.contents.onStart();
+            });
         }
     }
     return _self;
 }(jQuery);
 
+
+/**
+ * Common utility
+ */
+Tapper.utl = {
+    raiseEvent: function(name, val) {
+        Tapper.proxy.ALMemory.raiseEvent(name, val);
+    },
+    subscriveEvent: function(name, func) {
+        var evt = new EventSubscription(name);
+        Tapper.proxy.ALMemory.subscriber(name).then(function(sub) {
+            evt.setSubscriber(sub);
+            sub.signal.connect(func).then(function(id) {
+                evt.setId(id);
+            });
+        });
+        return evt;
+    }
+}
+
+/**
+ * SubscriveEvent info class
+ */
+function EventSubscription(event) {
+    this._event       = event;
+    this._internalId  = null;
+    this._sub         = null;
+    this._unsubscribe = false;
+}
+EventSubscription.prototype.setId = function(id) {
+    this._internalId = id;
+}
+EventSubscription.prototype.setSubscriber = function(sub) {
+    this._sub = sub;
+}
+EventSubscription.prototype.unsubscribe = function() {
+    if (this._internalId != null && this._sub != null) {
+        this._sub.signal.disconnect(this._internalId);
+    } else {
+        this._unsubscribe = true;
+    }
+}
+
 $( Tapper.core.init );
+
