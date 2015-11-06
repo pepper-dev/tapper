@@ -10,9 +10,8 @@ author: Takegami
 '''
 
 import os, sys
+import pkg_resources, shutil, glob
 
-import pkg_resources
-import shutil
 from argparse import ArgumentParser
 from jinja2 import Template
 
@@ -108,11 +107,32 @@ class TapperCommand(object):
             print str(e)
 
     def update(self):
-        print ''' TODO update sub-command.'''
+
+        # find
+        def find_path(name):
+            for path in os.walk('./'):
+                for i in path:
+                    if name in i:
+                        return os.path.join(path[0], name)
+
+        print 'Tapper update.'
+        preload_path = find_path('preloads')
+        tapper_path  = find_path('tapper.js')
+
+        src_list = []
+        res_list = glob.glob(os.path.join(preload_path, '*'))
+        for res in res_list:
+            f_name = res.split('/')[-1]
+            print '    Load: %s'% f_name
+            src_list.append(os.path.join('preloads', f_name))
+
+        _render(_get_resource('js', 'tapper.tmpl'),
+                tapper_path,
+                src_list=src_list )
+        print '  Succeeded.'
 
     def clean(self):
         print ''' TODO clean sub-command.'''
-
 
 
 if __name__ == "__main__":

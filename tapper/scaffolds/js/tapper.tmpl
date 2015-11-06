@@ -15,7 +15,9 @@ Tapper.core = function($) {
 
     // image preload
     var _preload_img = function() {
-        var image = [];
+        var image = [
+        {% for src in src_list %}{% if loop.index0 %}{{ ',' }}{% endif %}{{ "'%s'"% src }}{% endfor %}
+        ];
         $.each(image, function(i, src) {
             $('<img>').attr('src', src);
         });
