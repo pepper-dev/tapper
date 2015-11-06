@@ -55,10 +55,6 @@ class TapperCommand(object):
     parser_update = subparsers.add_parser('update',
         help='update scaffplds.')
 
-    # clean sub-command
-    parser_clean = subparsers.add_parser('clean',
-        help='clean scaffolds.')
-
     def __init__(self, argv):
         self.args = self.parser.parse_args(argv[1:])
         self.name = argv[1]
@@ -106,6 +102,7 @@ class TapperCommand(object):
             print '  Failed.'
             print str(e)
 
+
     def update(self):
 
         # find
@@ -130,10 +127,6 @@ class TapperCommand(object):
                 tapper_path,
                 src_list=src_list )
         print '  Succeeded.'
-
-    def clean(self):
-        print ''' TODO clean sub-command.'''
-
 
 if __name__ == "__main__":
     main()
