@@ -25,6 +25,7 @@ else:
 install_requires=[
     'setuptools',
     'jinja2',
+    'html'
     ]
 
 setup(name='tapper',

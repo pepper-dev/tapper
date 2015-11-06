@@ -10,11 +10,17 @@ author: Takegami
 '''
 
 import os, sys
+import pkg_resources, shutil, glob, html
 
-import pkg_resources
-import shutil
+from HTMLParser import HTMLParser
 from argparse import ArgumentParser
 from jinja2 import Template
+
+DIR_HTML = './html'
+DIR_CSS  = './html/css'
+DIR_JS   = './html/js'
+DIR_IMG  = './html/img'
+DIR_PRE  = './html/img/preloads'
 
 def main(argv=sys.argv):
     command = TapperCommand(argv)
@@ -35,11 +41,6 @@ def _copy(i_file, o_dir):
     shutil.copy(i_file, o_dir)
     print '    create: %s'% os.path.join(DIR_CSS, i_file.split('/')[-1])
 
-DIR_HTML = './html'
-DIR_CSS  = './html/css'
-DIR_JS   = './html/js'
-DIR_IMG  = './html/img'
-DIR_PRE  = './html/img/preloads'
 
 class TapperCommand(object):
     parser = ArgumentParser(prog='tapper')
@@ -55,10 +56,12 @@ class TapperCommand(object):
     # update sub-command
     parser_update = subparsers.add_parser('update',
         help='update scaffplds.')
-
-    # clean sub-command
-    parser_clean = subparsers.add_parser('clean',
-        help='clean scaffolds.')
+    parser_update.add_argument('--scene',
+        type=int,
+        help='scene num')
+    parser_update.add_argument('--index',
+        type=str,
+        help='index.html file path.')
 
     def __init__(self, argv):
         self.args = self.parser.parse_args(argv[1:])
@@ -101,18 +104,78 @@ class TapperCommand(object):
                     **params )
             print '  Succeeded.'
 
-        except OSError:
-            print '  Failed. Can not create scaffolds.'
         except Exception as e:
             print '  Failed.'
             print str(e)
 
+
     def update(self):
-        print ''' TODO update sub-command.'''
 
-    def clean(self):
-        print ''' TODO clean sub-command.'''
+        # HTMLParser
+        class SceneParser(HTMLParser):
+            def __init__(self):
+                HTMLParser.__init__(self)
+                self.num = 0
 
+            def count(self):
+                self.num = self.num + 1
+
+            def handle_starttag(self, tag, attrs):
+                if not tag == 'section': return
+                for attr in attrs:
+                    if attr[0] == 'id' and 'scene' in attr[1]:
+                        self.count()
+
+        # find file_path
+        def find_path(name):
+            for path in os.walk('./'):
+                for i in path:
+                    if name in i:
+                        return os.path.join(path[0], name)
+            raise IOError("File is not exists. '%s'"% name)
+
+        # parse html and return scene num
+        def get_scene_num(i_file):
+            parser = SceneParser()
+            with open(i_file, 'r') as fp:
+                parser.feed(fp.read())
+            return parser.num
+
+        print 'Tapper update.'
+        params = {}
+
+        # get index.html
+        index_path = self.args.index if self.args.index else find_path('index.html')
+
+        if self.args.scene is not None:
+            params['scene'] = self.args.scene
+        elif index_path:
+            params['scene'] = get_scene_num(index_path)
+        else:
+            params['scene'] = 1
+
+        print ' Scene %d'% params['scene']
+
+        try:
+            tapper_path  = find_path('tapper.js')
+            preload_path = find_path('preloads')
+
+            src_list = []
+            res_list = glob.glob(os.path.join(preload_path, '*'))
+            for res in res_list:
+                f_name = res.split('/')[-1]
+                print '    load: %s'% f_name
+                src_list.append(os.path.join('preloads', f_name))
+
+            params['src_list'] = src_list
+            _render(_get_resource('js', 'tapper.tmpl'),
+                    tapper_path,
+                    **params)
+            print '  Succeeded.'
+
+        except Exception as e:
+            print '  Failed.'
+            print str(e)
 
 
 if __name__ == "__main__":
