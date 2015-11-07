@@ -54,20 +54,17 @@ Tapper.core = function($) {
     var _bind = function() {
         // TODO bind events.
         Tapper.utl.subscriveEvent("Tapper/View/ChangeScene", function(id) {
-            var scene_id = parseInt(id);
-            var scene_method = 'onScene' + scene_id;
-            $('section#scene' + scene_id).show();
-            $('section:not(#scene' + scene_id + ')').hide();
-            try {
-                Tapper.contents[scene_method]();
-            } catch(e) {
-                console.error("Undefined scene" + scene_id + ".")
-            }
+            Tapper.view.changeScene(id);
+        });
+
+        Tapper.utl.subscriveEvent("Tapper/View/ButtonSelect", function (button_id) {
+            Tapper.view.buttonSelect(id);
         });
     }
 
     var _self = {
         init: function() {
+            Tapper.view.init();
             Tapper.contents.onLoad();
 
             _preload_img();
@@ -99,6 +96,42 @@ Tapper.utl = {
         return evt;
     }
 }
+
+/**
+ * View utility
+ */
+Tapper.view = {
+    init: function(){
+        $(document).on('touchstart', '[data-btn-id]', function(){
+            var node = $(this);
+            node.addClass('touched');
+        }).on('touchend', '[data-btn-id]', function(){
+            var node = $(this);
+            node.removeClass('touched');
+            node.addClass('selected');
+            Tapper.utl.raiseEvent("Tapper/View/ButtonTouched", node.attr('data-btn-id'));
+        });
+    },
+    changeScene: function(id) {
+        var scene_id = parseInt(id, 10);
+        var scene_method = 'onScene' + scene_id;
+        $('section#scene' + scene_id).show();
+        $('section:not(#scene' + scene_id + ')').hide();
+        try {
+            Tapper.contents[scene_method]();
+        } catch(e) {
+            console.error("Undefined scene" + scene_id + ".")
+        }
+    },
+    buttonSelect: function(id) {
+        var scene_id = parseInt(id, 10);
+        $('[data-btn-id='+ button_id +']').trigger('touchstart').trigger('touchend');
+    },
+    buttonReset: function(id) {
+        $('[data-btn-id].selected').removeClass('selected');
+    },
+}
+
 
 /**
  * SubscriveEvent info class
