@@ -56,12 +56,6 @@ class TapperCommand(object):
     # update sub-command
     parser_update = subparsers.add_parser('update',
         help='update scaffplds.')
-    parser_update.add_argument('--scene',
-        type=int,
-        help='scene num')
-    parser_update.add_argument('--index',
-        type=str,
-        help='index.html file path.')
 
     def __init__(self, argv):
         self.args = self.parser.parse_args(argv[1:])
@@ -111,21 +105,6 @@ class TapperCommand(object):
 
     def update(self):
 
-        # HTMLParser
-        class SceneParser(HTMLParser):
-            def __init__(self):
-                HTMLParser.__init__(self)
-                self.num = 0
-
-            def count(self):
-                self.num = self.num + 1
-
-            def handle_starttag(self, tag, attrs):
-                if not tag == 'section': return
-                for attr in attrs:
-                    if attr[0] == 'id' and 'scene' in attr[1]:
-                        self.count()
-
         # find file_path
         def find_path(name):
             for path in os.walk('./'):
@@ -134,28 +113,7 @@ class TapperCommand(object):
                         return os.path.join(path[0], name)
             raise IOError("File is not exists. '%s'"% name)
 
-        # parse html and return scene num
-        def get_scene_num(i_file):
-            parser = SceneParser()
-            with open(i_file, 'r') as fp:
-                parser.feed(fp.read())
-            return parser.num
-
         print 'Tapper update.'
-        params = {}
-
-        # get index.html
-        index_path = self.args.index if self.args.index else find_path('index.html')
-
-        if self.args.scene is not None:
-            params['scene'] = self.args.scene
-        elif index_path:
-            params['scene'] = get_scene_num(index_path)
-        else:
-            params['scene'] = 1
-
-        print ' Scene %d'% params['scene']
-
         try:
             tapper_path  = find_path('tapper.js')
             preload_path = find_path('preloads')
@@ -165,12 +123,11 @@ class TapperCommand(object):
             for res in res_list:
                 f_name = res.split('/')[-1]
                 print '    load: %s'% f_name
-                src_list.append(os.path.join('preloads', f_name))
+                src_list.append(os.path.join('img/preloads', f_name))
 
-            params['src_list'] = src_list
             _render(_get_resource('js', 'tapper.tmpl'),
                     tapper_path,
-                    **params)
+                    src_list=src_list)
             print '  Succeeded.'
 
         except Exception as e:
