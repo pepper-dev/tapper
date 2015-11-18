@@ -5,3 +5,12 @@ tapper.egg-info/PKG-INFO
 tapper.egg-info/requires.txt
 tapper.egg-info/SOURCES.txt
 tapper.egg-info/top_level.txt
+build/lib/tapper/__init__.py
+build/lib/tapper/scaffolds/css/contents.css
+build/lib/tapper/scaffolds/css/normalize.css
+build/lib/tapper/scaffolds/html/index.tmpl
+build/lib/tapper/scaffolds/js/contents.tmpl
+build/lib/tapper/scaffolds/js/tapper.tmpl
+build/lib/tapper/scripts/__init__.py
+build/lib/tapper/scripts/tapper.py
+dist/tapper-0.3-py2.7.egg
