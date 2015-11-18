@@ -48,16 +48,16 @@ Tapper.core = function($) {
 
             get_service('ALMemory');
             get_service('ALAudioPlayer');
-        })
+        }, null, Tapper_Debug ? Tapper_Debug_Host : null);
     }
 
     var _bind = function() {
-        // TODO bind events.
-        Tapper.utl.subscriveEvent("Tapper/View/ChangeScene", function(id) {
+        // bind events.
+        Tapper.utl.subscribeEvent("Tapper/View/ChangeScene", function(id) {
             Tapper.view.changeScene(id);
         });
 
-        Tapper.utl.subscriveEvent("Tapper/View/ButtonSelect", function (button_id) {
+        Tapper.utl.subscribeEvent("Tapper/View/ButtonSelect", function (button_id) {
             Tapper.view.buttonSelect(id);
         });
     }
@@ -70,7 +70,10 @@ Tapper.core = function($) {
             _preload_img();
             _connect( function() {
                 _bind();
-                Tapper.contents.onStart();
+                Tapper.utl.getData("Tapper/InitData", function(data) {
+                    Tapper.init_data = JSON.parse(data);
+                    Tapper.contents.onStart();
+                }, Tapper.contents.onStart );
             });
         }
     }
@@ -85,7 +88,7 @@ Tapper.utl = {
     raiseEvent: function(name, val) {
         Tapper.proxy.ALMemory.raiseEvent(name, val);
     },
-    subscriveEvent: function(name, func) {
+    subscribeEvent: function(name, func) {
         var evt = new EventSubscription(name);
         Tapper.proxy.ALMemory.subscriber(name).then(function(sub) {
             evt.setSubscriber(sub);
@@ -94,6 +97,9 @@ Tapper.utl = {
             });
         });
         return evt;
+    },
+    getData: function(name, succeeded, failed) {
+        Tapper.proxy.ALMemory.getData(name).then(succeeded, failed);
     }
 }
 
@@ -134,7 +140,7 @@ Tapper.view = {
 
 
 /**
- * SubscriveEvent info class
+ * SubscribeEvent info class
  */
 function EventSubscription(event) {
     this._event       = event;
