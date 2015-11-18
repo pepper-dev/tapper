@@ -10,8 +10,9 @@ author: Takegami
 '''
 
 import os, sys
-import pkg_resources, shutil, glob, html
+import shutil, glob, html
 
+from pkg_resources import (resource_filename, get_distribution)
 from HTMLParser import HTMLParser
 from argparse import ArgumentParser
 from jinja2 import Template
@@ -22,19 +23,21 @@ DIR_JS   = './html/js'
 DIR_IMG  = './html/img'
 DIR_PRE  = './html/img/preloads'
 
+PROG = 'tapper'
+
 def main(argv=sys.argv):
     command = TapperCommand(argv)
     command.run()
 
 def _get_resource(kind, name):
     filename = os.path.join('scaffolds', kind, name)
-    return pkg_resources.resource_filename('tapper', filename)
+    return resource_filename('tapper', filename)
 
 def _render(i_file, o_file, **kwarg):
-    with open(i_file, 'r') as fp:
-        tmpl = Template(fp.read())
-        with open(o_file, 'wb') as fp:
-            fp.write(tmpl.render(**kwarg))
+    with open(i_file, 'r') as i_fp, open(o_file, 'wb') as o_fp:
+        tmpl = Template(i_fp.read())
+        o_fp.write(tmpl.render(**kwarg))
+
     print '    create: %s'% o_file
 
 def _copy(i_file, o_dir):
@@ -43,7 +46,11 @@ def _copy(i_file, o_dir):
 
 
 class TapperCommand(object):
-    parser = ArgumentParser(prog='tapper')
+    parser = ArgumentParser(prog=PROG)
+    parser.add_argument('-v',
+        action='version',
+        version='%s %s'%(PROG, get_distribution(PROG).version))
+
     subparsers = parser.add_subparsers(help='sub-command help')
 
     # create sub-command
