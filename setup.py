@@ -30,7 +30,7 @@ install_requires=[
 
 setup(name='tapper',
     keywords='tapper',
-    version='0.2',
+    version='0.3',
     description='Pepper tablet scafflod create tools.',
     author='Takegami Hiroyuki, Minabe Yoji, Yamamoto',
     license='BSD-derived (http://www.repoze.org/LICENSE.txt)',
