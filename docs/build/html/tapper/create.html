@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tapper.create &mdash; tapper 0.3 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="tapper 0.3 ドキュメント" href="../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">tapper 0.3 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tapper-create">
+<h1>tapper.create<a class="headerlink" href="#tapper-create" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="line-block">
+<div class="line">tapperの最も基本的なコマンドです。</div>
+</div>
+<div class="section" id="id1">
+<h2>ひな形を作成する<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>下記のようにコマンドラインからtapperコマンドを使用することで、簡単にpepper用のhtmlのひな形を生成することができます。</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>tapper create
+Tapper create.
+ Scene 1
+   mkdir: ./html
+   mkdir: ./html/css
+   mkdir: ./html/js
+   mkdir: ./html/img
+   mkdir: ./html/img/preloads
+   create: ./html/index.html
+   create: ./html/css/contents.css
+   create: ./html/css/normalize.css
+   create: ./html/js/tapper.js
+   create: ./html/js/contents.js
+ Succeeded.
+</pre></div>
+</div>
+</div>
+<div class="section" id="scene">
+<h2>sceneオプション<a class="headerlink" href="#scene" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>sceneオプションをつけることで最初に作成するsceneの数を指定することができます。
+sceneの数は後からでも変更できるので、
+途中でsceneが増えた場合でもcreateを実行し直す必要はありません。</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>tapper create --scene 5
+Tapper create.
+ Scene 5
+   mkdir: ./html
+   mkdir: ./html/css
+   mkdir: ./html/js
+   mkdir: ./html/img
+   mkdir: ./html/img/preloads
+   create: ./html/index.html
+   create: ./html/css/contents.css
+   create: ./html/css/normalize.css
+   create: ./html/js/tapper.js
+   create: ./html/js/contents.js
+ Succeeded.
+</pre></div>
+</div>
+<p>sceneオプションを指定して生成されたindex.html</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;UTF-8&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;initial-scale = 1.335, minimum-scale = 1.335, maximum-scale = 1.335&quot;</span><span class="nt">/&gt;</span>
+
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;css/normalize.css&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;css/contents.css&quot;</span> <span class="nt">/&gt;</span>
+
+        <span class="nt">&lt;script&gt;</span>
+        <span class="kd">var</span> <span class="nx">Tapper_Debug</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">Tapper_Debug_Host</span> <span class="o">=</span> <span class="s2">&quot;pepper.local&quot;</span><span class="p">;</span>
+        <span class="nt">&lt;/script&gt;</span>
+
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/libs/qimessaging/2/qimessaging.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/lib/jquery/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;js/tapper.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;js/contents.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;scene1&quot;</span> <span class="na">style=</span><span class="s">&quot;display: block;&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/section&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;scene2&quot;</span> <span class="na">style=</span><span class="s">&quot;display: none;&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/section&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;scene3&quot;</span> <span class="na">style=</span><span class="s">&quot;display: none;&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/section&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;scene4&quot;</span> <span class="na">style=</span><span class="s">&quot;display: none;&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/section&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;scene5&quot;</span> <span class="na">style=</span><span class="s">&quot;display: none;&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/section&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">tapper.create</a><ul>
+<li><a class="reference internal" href="#id1">ひな形を作成する</a></li>
+<li><a class="reference internal" href="#scene">sceneオプション</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">tapper 0.3 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, pepper-dev.
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2 で生成しました。
+    </div>
+  </body>
+</html>

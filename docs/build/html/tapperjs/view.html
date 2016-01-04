@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tapper.view &mdash; tapper 0.3 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="tapper 0.3 ドキュメント" href="../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">tapper 0.3 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tapper-view">
+<h1>Tapper.view<a class="headerlink" href="#tapper-view" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="line-block">
+<div class="line">Tapperのviewに関する処理を記述しています。</div>
+<div class="line">また、シーンの切り替えやボタンのタッチイベントのバインドを行っています。</div>
+</div>
+<div class="section" id="id1">
+<h2>初期化<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">Tapper.coreの初期化時にTapper.viewが初期化されます。</div>
+<div class="line">Tapper.view初期化時にはhtmlに存在する全ての</div>
+<div class="line"><em>data-btn-id</em> を持つノードのタッチイベントを設定します。</div>
+<div class="line"><em>data-btn-id</em> を持つノードのtouchstartではtouchedクラスを付与し、</div>
+<div class="line">touchend時に <em>Tapper/View/ButtonTouched</em> にraiseEventを実行します。</div>
+</div>
+</div>
+<div class="section" id="tapper-view-changescene-id">
+<h2>Tapper.view.changeScene(id)<a class="headerlink" href="#tapper-view-changescene-id" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">シーン切り替え後にTapper.contents.onScene <em>n</em> をコールします。</div>
+<div class="line">また、<em>Tapper/View/ChangeScene</em> イベントを検知した際にコールされます。</div>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// javascriptでコールする場合</span>
+<span class="nx">Tapper</span><span class="p">.</span><span class="nx">view</span><span class="p">.</span><span class="nx">changeScene</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// ALMemoryのイベントでシーンの切り替えを行う場合</span>
+<span class="nx">Tapper</span><span class="p">.</span><span class="nx">utl</span><span class="p">.</span><span class="nx">raiseEvent</span><span class="p">(</span><span class="s2">&quot;Tapper/View/ChangeScene&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tapper-view-buttonselect-btn-id">
+<h2>Tapper.view.buttonSelect(btn_id)<a class="headerlink" href="#tapper-view-buttonselect-btn-id" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>Tapper/View/ButtonSelect</em> イベントを検知した際にコールされます。</div>
+<div class="line">また、btn_idで指定されたidを持つノードにselectedクラスを付与します。</div>
+</div>
+</div>
+<div class="section" id="tapper-view-buttonreset">
+<h2>Tapper.view.buttonReset<a class="headerlink" href="#tapper-view-buttonreset" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="line-block">
+<div class="line">selectedクラスを付与された全てのノードからselectedクラスを削除します。</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tapper.view</a><ul>
+<li><a class="reference internal" href="#id1">初期化</a></li>
+<li><a class="reference internal" href="#tapper-view-changescene-id">Tapper.view.changeScene(id)</a></li>
+<li><a class="reference internal" href="#tapper-view-buttonselect-btn-id">Tapper.view.buttonSelect(btn_id)</a></li>
+<li><a class="reference internal" href="#tapper-view-buttonreset">Tapper.view.buttonReset</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">tapper 0.3 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, pepper-dev.
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2 で生成しました。
+    </div>
+  </body>
+</html>

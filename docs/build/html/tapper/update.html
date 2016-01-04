@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tapper.update &mdash; tapper 0.3 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="tapper 0.3 ドキュメント" href="../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">tapper 0.3 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tapper-update">
+<h1>tapper.update<a class="headerlink" href="#tapper-update" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="line-block">
+<div class="line">tapperプロジェクトでは</div>
+<div class="line"><em>html/img/preloads</em> 内に含まれている画像ファイルをWebview表示時にプリロードさせることができます。</div>
+</div>
+<div class="section" id="id1">
+<h2>使用例<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>下記のようなディレクトリ構成のケースで</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>tree
+.
+├── css
+│   ├── contents.css
+│   └── normalize.css
+├── img
+│   └── preloads
+│       └── sample.png
+├── index.html
+└── js
+    ├── contents.js
+    └── tapper.js
+</pre></div>
+</div>
+<p><em>img/preloads/sample.png</em> を表示時にプリロードさせたい場合</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>tapper update
+</pre></div>
+</div>
+<p>tapper updateコマンドを実行すると</p>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nv">$ </span>tapper update
+Tapper update.
+    load: sample.png
+    create: ./js/tapper.js
+  Succeeded.
+</pre></div>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="mi">16</span>      <span class="c1">// image preload</span>
+<span class="mi">17</span>      <span class="kd">var</span> <span class="nx">_preload_img</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="mi">18</span>          <span class="kd">var</span> <span class="nx">image</span> <span class="o">=</span> <span class="p">[</span>
+<span class="mi">19</span>          <span class="s1">&#39;img/preloads/sample.png&#39;</span>
+<span class="mi">20</span>          <span class="p">];</span>
+<span class="mi">21</span>          <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">image</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">src</span><span class="p">)</span> <span class="p">{</span>
+<span class="mi">22</span>              <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;img&gt;&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="nx">src</span><span class="p">);</span>
+<span class="mi">23</span>          <span class="p">});</span>
+<span class="mi">24</span>      <span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">上記のようにpreload処理にsample.pngが含まれていることが確認できます。</div>
+<div class="line">tapper updateによりtapper.jsを更新した場合</div>
+<div class="line">tapper.jsに対して行った修正は上書きされてしまうので注意してください。</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">tapper.update</a><ul>
+<li><a class="reference internal" href="#id1">使用例</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">tapper 0.3 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, pepper-dev.
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2 で生成しました。
+    </div>
+  </body>
+</html>

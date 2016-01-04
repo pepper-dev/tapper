@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tapper.utl &mdash; tapper 0.3 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="tapper 0.3 ドキュメント" href="../index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">tapper 0.3 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tapper-utl">
+<h1>Tapper.utl<a class="headerlink" href="#tapper-utl" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="line-block">
+<div class="line">頻繁に使用するALProxyのメソッドを定義しています。</div>
+<div class="line">定義されているAPIは以下の通りです。</div>
+</div>
+<div class="section" id="tapper-utl-raiseevent-name-val">
+<h2>Tapper.utl.raiseEvent(name, val)<a class="headerlink" href="#tapper-utl-raiseevent-name-val" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ALMemory.raiseEventを実行します。</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Tapper</span><span class="p">.</span><span class="nx">utl</span><span class="p">.</span><span class="nx">raiseEvent</span><span class="p">(</span><span class="s2">&quot;Memory/Name&quot;</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tapper-utl-subscribeevent-name-func">
+<h2>Tapper.utl.subscribeEvent(name, func)<a class="headerlink" href="#tapper-utl-subscribeevent-name-func" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ALMemoryのイベントを監視します。</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Tapper</span><span class="p">.</span><span class="nx">utl</span><span class="p">.</span><span class="nx">subscribeEvent</span><span class="p">(</span><span class="s2">&quot;Memory/Name&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Raised event [ Memory/Name ] value = &quot;</span> <span class="o">+</span> <span class="nx">val</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tapper-utl-getdata-name-succeeded-failed">
+<h2>Tapper.utl.getData(name, succeeded, failed)<a class="headerlink" href="#tapper-utl-getdata-name-succeeded-failed" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>ALMemory.getDataを実行します。</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Tapper</span><span class="p">.</span><span class="nx">utl</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="s2">&quot;Memory/Name&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Get data [ Memory/Name ] value = &quot;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">);</span>
+<span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;Memory name is not defined.[ Memory/Name ]&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tapper.utl</a><ul>
+<li><a class="reference internal" href="#tapper-utl-raiseevent-name-val">Tapper.utl.raiseEvent(name, val)</a></li>
+<li><a class="reference internal" href="#tapper-utl-subscribeevent-name-func">Tapper.utl.subscribeEvent(name, func)</a></li>
+<li><a class="reference internal" href="#tapper-utl-getdata-name-succeeded-failed">Tapper.utl.getData(name, succeeded, failed)</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">tapper 0.3 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, pepper-dev.
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2 で生成しました。
+    </div>
+  </body>
+</html>
