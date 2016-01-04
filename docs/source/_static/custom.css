@@ -1,0 +1,10 @@
+
+div.sphinxsidebar #searchbox input[type="submit"] {
+    width: 50px;
+}
+
+div.sphinxsidebar #searchbox input[type="text"] {
+    width: 140px;
+    height: 21px;
+}
+
